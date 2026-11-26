@@ -12,13 +12,29 @@
 // Outside the grader's container, MAKEFUN_OUTPUT_DIR stands in for /output:
 //   mkdir -p out && MAKEFUN_OUTPUT_DIR=out node main.ts
 
-import { cpSync, existsSync, mkdirSync, writeFileSync } from 'node:fs';
+import { cpSync, existsSync, mkdirSync, readdirSync, statSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { buildDossier } from './vendor/makefun-game.ts';
 
 const here = fileURLToPath(new URL('.', import.meta.url));
 const out = process.env.MAKEFUN_OUTPUT_DIR ?? '/output';
+
+// Sky Rings: fail fast with a clear error instead of handing in a broken
+// output directory. The grader only checks the files in /output, so a
+// missing index or a missing/oversize screenshot would silently produce
+// an entry the gate refuses.
+const fail = (msg) => { throw new Error(`Sky Rings entrypoint: ${msg}`); };
+const gameIndex = join(here, 'game', 'index.html');
+if (!existsSync(gameIndex)) fail(`game/index.html is missing at ${gameIndex}`);
+const shotsDir = join(here, 'screenshots');
+if (!existsSync(shotsDir)) fail(`screenshots/ is missing at ${shotsDir}`);
+const shots = readdirSync(shotsDir).filter((n) => !n.startsWith('.')).sort();
+if (shots.length < 3 || shots.length > 4) fail(`expected 3 or 4 screenshots, found ${shots.length}`);
+for (const name of shots) {
+  const bytes = statSync(join(shotsDir, name)).size;
+  if (bytes > 262144) fail(`screenshot ${name} is ${bytes} bytes, over the 256 KiB cap`);
+}
 
 mkdirSync(out, { recursive: true });
 cpSync(join(here, 'game'), join(out, 'game'), { recursive: true });
@@ -39,3 +55,8 @@ writeFileSync(
     game_path_max_bytes: 1000,
   }),
 );
+
+// Sky Rings: confirm what was handed in, so a local run shows the same
+// shape the grader will see.
+const gameFiles = readdirSync(join(out, 'game'), { recursive: true }).length;
+console.log(`Sky Rings handed in: ${gameFiles} entries under game/, ${shots.length} screenshots (${shots.join(', ')}), dossier.json written to ${out}`);
