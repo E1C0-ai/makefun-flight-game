@@ -1,10 +1,27 @@
-# Sky Rings — make.fun bounty `best-flight-game-20261126-0057`
+# Sky Rings — Canyon Ring-Run
+
+[![make.fun · best-flight-game-20261126-0057](https://make.fun/badge/best-flight-game-20261126-0057.svg)](https://make.fun/bounty/best-flight-game-20261126-0057?utm_source=github&utm_medium=readme&utm_campaign=best-flight-game-20261126-0057)
+[![rank](https://make.fun/badge/best-flight-game-20261126-0057/E1C0-ai/makefun-flight-game/rank.svg)](https://make.fun/bounty/best-flight-game-20261126-0057/leaderboard?utm_source=github&utm_medium=readme&utm_campaign=best-flight-game-20261126-0057)
+[![reward](https://make.fun/badge/best-flight-game-20261126-0057/E1C0-ai/makefun-flight-game/reward.svg)](https://make.fun/bounty/best-flight-game-20261126-0057?utm_source=github&utm_medium=readme&utm_campaign=best-flight-game-20261126-0057)
+
+A chase-view flight game built for the [make.fun](https://make.fun/bounty/best-flight-game-20261126-0057) "Make the best flight game" bounty.
 
 Make the best flight game. **$500 USDC, 50 places paid** (1st $100, 2nd $55, 3rd $30 … 50th $3).
 Escrow locked on Solana since 2026-11-26 01:05 UTC.
 Deadline: **Sat 2026-11-28 00:57 UTC = 北京时间 2026-11-28 08:57** (48-hour window).
 First blind-round cutoff: **2026-11-26 12:57 UTC = 北京时间 20:57** — submit before then to be judged in round 1.
 Entries so far: ~333 (2026-11-26 morning).
+
+## Run it
+
+```sh
+node serve.ts
+# open http://localhost:8080
+```
+
+---
+
+<sub>Entered on [make.fun](https://make.fun/?utm_source=github&utm_medium=readme&utm_campaign=best-flight-game-20261126-0057) · AI agents build software for cash rewards</sub>
 
 ## The game
 
@@ -44,19 +61,11 @@ through a canyon valley, mind the ridges.
 - Interactive playtest (Playwright, real keys: Space, ArrowUp, Shift, ArrowLeft) — no errors.
 - `MAKEFUN_OUTPUT_DIR=out node main.ts` — dossier.json builds, game + screenshots copied.
 
-## Still needs eico (Muse cannot do these)
+## Status
 
-1. **GitHub**: create a public repo (e.g. `sky-rings`) under his account, push this
-   directory (created after the competition opened, 2026-11-26), MIT license included.
-2. **make.fun**: sign in at make.fun (his account + Solana wallet `5ffaKbhY…`,
-   the one already used for token-radar), run the kit CLI `check` then `submit`
-   with the repo URL + commit SHA + transcript bundle. The kit CLI is in `kit/cli/`.
-3. **Transcripts**: the submission needs the agent sessions that built the entry
-   (`node cli/makefun.mjs bundle`). This run's session started 2026-11-26 01:53 UTC,
-   after the competition opened (01:05 UTC) — inside the window.
-4. **Claim**: if it places, claim USDC to his Solana wallet before the claim window
-   closes; only if his yearly make.fun winnings reach $2,000 does it ask for
-   name/country/tax form (W-8BEN for non-US) — $500 alone does not trigger it.
+- **GitHub**: public repo `E1C0-ai/makefun-flight-game` (created after the competition opened, 2026-11-26), MIT license included.
+- **make.fun**: signed in as @e1c0-ai (GitHub E1C0-ai), wallet `5ffaKbhY…V2tb` linked; entry submitted with the repo URL + commit SHA + transcript bundle.
+- **Claim**: if it places, claim USDC to his Solana wallet before the claim window closes; only if his yearly make.fun winnings reach $2,000 does it ask for name/country/tax form (W-8BEN for non-US) — $500 alone does not trigger it.
 
 ## Files
 
